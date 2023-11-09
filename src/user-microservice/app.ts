@@ -7,7 +7,7 @@ const port = process.env.PORT || 3002;
 const usuarios = [
   { id: '1', nombre: 'Usuario 1', correo: 'usuario1@example.com' },
   { id: '2', nombre: 'Usuario 2', correo: 'usuario2@example.com' },
-  // Puedes agregar más usuarios según sea necesario
+
 ];
 
 app.use(express.json());
