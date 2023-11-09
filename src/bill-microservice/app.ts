@@ -1,27 +1,26 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import { FacturaController } from './application/bill.controller';
+import express, { Application, Request, Response } from 'express';
+import { FacturaController } from './application/controllers/factura.controller';
+import { FacturaService } from './domain/services/factura.service';
+import { UserMicroserviceService } from './infrastructure/external-services/user-microservice.service'; // Ajusta según tu estructura
 
-const app = express();
-const port = 3000;
+const app: Application = express();
+const port = process.env.PORT || 3001;
 
-// Configura middleware
-app.use(bodyParser.json());
+// Configura middleware y enrutadores
+app.use(express.json());
 
-// Instancia el controlador de facturas
-const facturaController = new FacturaController();
+// Configura dependencias
+const userMicroserviceService = new UserMicroserviceService();
+const facturaService = new FacturaService(userMicroserviceService)
+const facturaController = new FacturaController(facturaService);
 
-// Configura rutas
-app.post('/facturas', async (req, res) => {
-  try {
-    const nuevaFactura = await facturaController.createFactura(req.body);
-    res.json({ factura: nuevaFactura });
-  } catch (error: any) {
-    res.status(500).json({ error: error.message });
-  }
+// Rutas
+app.post('/bill', async (req: Request, res: Response) => {
+  await facturaController.crearFactura(req, res);
 });
 
 // Inicia el servidor
 app.listen(port, () => {
-  console.log(`Servidor de facturación en ejecución en http://localhost:${port}`);
+  console.log(`Microservicio Bill escuchando en el puerto ${port}`);
 });
+
