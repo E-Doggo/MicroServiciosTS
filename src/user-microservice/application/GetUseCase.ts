@@ -11,3 +11,5 @@ class GetUserUC {
     return this.getUserRepo.getMail(userId);
   }
 }
+
+export default GetUserUC;

@@ -8,3 +8,5 @@ class CreateUserUC {
     return this.createUserRepo.create(user);
   }
 }
+
+export default CreateUserUC;

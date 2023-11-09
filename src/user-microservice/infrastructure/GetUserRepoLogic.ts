@@ -16,3 +16,5 @@ class GetUserPostgreSQL implements GetUserRepo {
     return "Some@gmail.com";
   }
 }
+
+export default GetUserPostgreSQL;
