@@ -1,11 +1,11 @@
 import { Logger } from "../domain/logger";
 
 export class ConsoleLogger implements Logger {
-  info(message: Message): void {
+  info(message: string): void {
     console.log(message);
   }
 
-  error(message: Message): void {
+  error(message: string): void {
     console.error(message);
   }
 }
